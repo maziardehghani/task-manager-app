@@ -22,8 +22,29 @@
       <div class="row g-3">
         <div v-for="task in tasks" class="col-md-4">
           <div class="card">
-            <div class="card-body">
-              {{ task.title }}
+            <div class="card-body bg-light">
+              <h5 class="card-title">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <small class="text-muted">{{task.title}}</small>
+                  </div>
+                  <div class="text-end">
+                    <small class="text-black fw-bold">{{task.status}}</small>
+                  </div>
+                </div>
+              </h5>
+              <p class="card-text">{{task.description}}</p>
+              <div class="card-footer mt-auto p-2 bg-transparent border-top-0">
+                <div class="d-flex justify-content-between">
+                  <div class="text-start">
+                    <small class="text-muted">end date: {{ task.endDate }}</small>
+                  </div>
+                  <div class="text-end">
+                    <small class="text-muted">start date: {{ task.startDate }}</small>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
