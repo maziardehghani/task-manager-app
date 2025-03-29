@@ -1,19 +1,19 @@
 <template>
-<div class="row">
   <div class="col-md-2 mb-4">
     <h6>
-      Filter Tasks
+      Filter By Statuses
     </h6>
 
 
     <select v-model="status" @change="filterTask" class="form-select form-select-sm">
+      <option value="">all</option>
       <option value="done">done</option>
       <option value="doing">doing</option>
       <option value="todo">todo</option>
     </select>
 
   </div>
-</div>
+
 </template>
 
 <script setup>
@@ -26,7 +26,6 @@ const status = ref('')
 
 function filterTask()
 {
-  console.log(status.value)
   store.fetchTasks(status.value)
 }
 

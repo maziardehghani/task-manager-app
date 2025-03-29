@@ -10,8 +10,12 @@
     </div>
 
     <div class="container mt-5">
+      <div class="row">
+
+      <Search/>
       <Filter/>
-      <div class="row g-3">
+      </div>
+        <div class="row g-3">
         <div v-for="task in tasks" class="col-md-4">
           <div class="card">
             <div class="card-body">
@@ -30,6 +34,7 @@
 import {useTaskStore} from "../../store/Task.js";
 import {computed, ref} from "vue";
 import Filter from "../../components/Tasks/Filter.vue";
+import Search from "../../components/Tasks/Search.vue";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)
