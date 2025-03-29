@@ -28,7 +28,7 @@ export const useTaskStore = defineStore('task', {
     actions: {
         async fetchTasks(status = '', search = '', order = '') {
             try {
-                const response = await api.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}&order=${order}`);
+                const response = await api.get(`/api/tasks?status=${status}&text=${search}&order=${order}`);
 
                 this.tasks = response.data.data;
 
@@ -50,7 +50,7 @@ export const useTaskStore = defineStore('task', {
 
         async storeTask(data) {
             try {
-                const response = await api.post(`${import.meta.env.VITE_API_URL}/api/tasks/store`,
+                const response = await api.post(`/api/tasks/store`,
                     {
                         title: data.title,
                         description: data.description,
@@ -70,7 +70,7 @@ export const useTaskStore = defineStore('task', {
         },
         async updateTask(data, TaskId) {
             try {
-                const response = await api.post(`${import.meta.env.VITE_API_URL}/api/tasks/update/${TaskId}`,
+                const response = await api.post(`/api/tasks/update/${TaskId}`,
                     {
                         title: data.title,
                         description: data.description,
@@ -92,7 +92,7 @@ export const useTaskStore = defineStore('task', {
         },
         async removeTask(taskId) {
             try {
-                await api.delete(`${import.meta.env.VITE_API_URL}/api/tasks/delete/${taskId}`);
+                await api.delete(`/api/tasks/delete/${taskId}`);
                 this.deleteTask(taskId);
                 this.toaster.success("task removed successfully");
             } catch (error) {
