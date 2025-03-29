@@ -51,6 +51,7 @@ import {reactive, ref} from "vue";
 import axios from "axios";
 import {useRouter} from "vue-router";
 import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
+import {authState} from "../../states/auth.js";
 
 const router = useRouter();
 
@@ -80,8 +81,9 @@ async function login() {
       password : form.password
     });
 
+    sessionStorage.setItem('token', res.data.data.token)
+    authState.isAuthenticated = !!sessionStorage.getItem('token');
 
-    console.log(res.data)
 
     await router.push({name: 'home'});
 
