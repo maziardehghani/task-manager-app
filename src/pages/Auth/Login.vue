@@ -12,7 +12,7 @@
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light"><i class="bi bi-envelope-fill text-primary"></i></span>
-                  <input type="email" class="form-control" id="email" placeholder="Enter your email" >
+                  <input v-model="form.email" type="email" class="form-control" id="email" placeholder="Enter your email" >
                 </div>
               </div>
 
@@ -20,7 +20,7 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light"><i class="bi bi-lock-fill text-primary"></i></span>
-                  <input type="password" class="form-control" id="password" placeholder="Enter your password" >
+                  <input v-model="form.password" type="password" class="form-control" id="password" placeholder="Enter your password" >
                 </div>
               </div>
 
@@ -75,10 +75,13 @@ async function login() {
 
   try {
 
-    await api.post(`/auth/login`, {
+    const res = await api.post(`/auth/login`, {
       email : form.email,
       password : form.password
     });
+
+
+    console.log(res.data)
 
     await router.push({name: 'home'});
 
