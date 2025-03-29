@@ -1,8 +1,7 @@
 import {defineStore} from 'pinia';
 import {useToast} from 'vue-toastification';
-import router from "../router.js";
-import axios from "axios";
-import {nextTick} from "vue";
+
+import api from "../states/api.js";
 
 export const useTaskStore = defineStore('task', {
     state: () => ({
@@ -29,18 +28,12 @@ export const useTaskStore = defineStore('task', {
     actions: {
         async fetchTasks(status = '', search = '', order = '') {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}&order=${order}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: localStorage.getItem('token')
-                            ? `Bearer ${localStorage.getItem('token')}`
-                            : '',
-                    }
-                });
+                const response = await api.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}&order=${order}`);
 
                 this.tasks = response.data.data;
 
             } catch (error) {
+                console.log(error)
                 this.toaster.error("error while receive tasks");
             }
         },
@@ -57,20 +50,13 @@ export const useTaskStore = defineStore('task', {
 
         async storeTask(data) {
             try {
-                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks/store`,
+                const response = await api.post(`${import.meta.env.VITE_API_URL}/api/tasks/store`,
                     {
                         title: data.title,
                         description: data.description,
                         status: data.status,
                         start_date: data.start_date,
                         end_date: data.end_date,
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: localStorage.getItem('token')
-                                ? `Bearer ${localStorage.getItem('token')}`
-                                : '',
-                        }
                     });
 
                 this.tasks.unshift(response.data.data)
@@ -84,7 +70,7 @@ export const useTaskStore = defineStore('task', {
         },
         async updateTask(data, TaskId) {
             try {
-                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks/update/${TaskId}`,
+                const response = await api.post(`${import.meta.env.VITE_API_URL}/api/tasks/update/${TaskId}`,
                     {
                         title: data.title,
                         description: data.description,
@@ -92,13 +78,6 @@ export const useTaskStore = defineStore('task', {
                         start_date: data.start_date,
                         end_date: data.end_date,
                         _method: "PUT",
-                    }, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: localStorage.getItem('token')
-                                ? `Bearer ${localStorage.getItem('token')}`
-                                : '',
-                        }
                     });
 
                 this.updateTaskList(response.data.data)
@@ -113,16 +92,7 @@ export const useTaskStore = defineStore('task', {
         },
         async removeTask(taskId) {
             try {
-                await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/delete/${taskId}`,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: localStorage.getItem('token')
-                                ? `Bearer ${localStorage.getItem('token')}`
-                                : '',
-                        }
-                    }
-                );
+                await api.delete(`${import.meta.env.VITE_API_URL}/api/tasks/delete/${taskId}`);
                 this.deleteTask(taskId);
                 this.toaster.success("task removed successfully");
             } catch (error) {

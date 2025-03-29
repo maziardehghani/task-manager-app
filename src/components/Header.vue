@@ -31,7 +31,7 @@ import {useRouter} from "vue-router";
 const router = useRouter()
 
 function logout() {
-  sessionStorage.removeItem("token");
+  localStorage.removeItem("token");
 
   router.push('login')
 }
