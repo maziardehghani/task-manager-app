@@ -9,10 +9,10 @@
           <div class="card-body p-4 p-md-5">
             <form @submit.prevent="register">
               <div class="mb-4">
-                <label for="email" class="form-label">name</label>
+                <label for="name" class="form-label">name</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light"><i class="bi bi-envelope-fill text-primary"></i></span>
-                  <input v-model="form.name" class="form-control" id="email" placeholder="Enter your name">
+                  <input v-model="form.name" class="form-control" placeholder="Enter your name">
                 </div>
               </div>
 
@@ -42,12 +42,12 @@
               </div>
 
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg rounded-pill py-2">
+
                   <BasePreLoaderButton
                       :main-text="'Register'"
                       :loading-text="'loading...'"
                       :loading="preLoader" />
-                </button>
+
               </div>
 
               <div class="text-center mt-4">
@@ -69,8 +69,9 @@ import axios from "axios";
 import {useRouter} from "vue-router";
 import {authState} from "../../states/auth.js";
 import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
-import toast from "bootstrap/js/src/toast.js";
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const router = useRouter();
 
 const form = reactive({

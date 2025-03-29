@@ -25,12 +25,10 @@
               </div>
 
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary btn-lg rounded-pill py-2">
                   <BasePreLoaderButton
                       :main-text="'login'"
                       :loading-text="'loading...'"
                       :loading="preLoader" />
-                </button>
               </div>
 
               <div class="text-center mt-4">
