@@ -7,12 +7,12 @@
             <h3 class="text-center mb-0"><i class="bi bi-person-fill me-2"></i>Login to Your Account</h3>
           </div>
           <div class="card-body p-4 p-md-5">
-            <form>
+            <form @submit.prevent="login">
               <div class="mb-4">
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light"><i class="bi bi-envelope-fill text-primary"></i></span>
-                  <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email" >
                 </div>
               </div>
 
@@ -20,13 +20,16 @@
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                   <span class="input-group-text bg-light"><i class="bi bi-lock-fill text-primary"></i></span>
-                  <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                  <input type="password" class="form-control" id="password" placeholder="Enter your password" >
                 </div>
               </div>
 
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary btn-lg rounded-pill py-2">
-                  <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                  <BasePreLoaderButton
+                      :main-text="'login'"
+                      :loading-text="'loading...'"
+                      :loading="preLoader" />
                 </button>
               </div>
 
@@ -43,6 +46,50 @@
 </template>
 
 <script setup>
+
+import {reactive, ref} from "vue";
+import axios from "axios";
+import {useRouter} from "vue-router";
+import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
+
+const router = useRouter();
+
+const form = reactive({
+  email: '',
+  password: '',
+});
+
+const preLoader = ref(false);
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+
+async function login() {
+
+  preLoader.value = true;
+
+  try {
+
+    await api.post(`/auth/login`, {
+      email : form.email,
+      password : form.password
+    });
+
+    await router.push({name: 'home'});
+
+  } catch (err) {
+    console.log(err);
+  }
+
+  preLoader.value = false;
+}
+
+
 
 </script>
 
