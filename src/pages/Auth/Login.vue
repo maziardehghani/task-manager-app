@@ -52,7 +52,9 @@ import axios from "axios";
 import {useRouter} from "vue-router";
 import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
 import {authState} from "../../states/auth.js";
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const router = useRouter();
 
 const form = reactive({
@@ -84,11 +86,11 @@ async function login() {
     sessionStorage.setItem('token', res.data.data.token)
     authState.isAuthenticated = !!sessionStorage.getItem('token');
 
-
+    toast.success('Login successful!');
     await router.push({name: 'home'});
 
   } catch (err) {
-    console.log(err);
+    toast.error(err.response.data.message);
   }
 
   preLoader.value = false;
