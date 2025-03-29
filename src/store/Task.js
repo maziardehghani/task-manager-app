@@ -2,6 +2,7 @@ import {defineStore} from 'pinia';
 import {useToast} from 'vue-toastification';
 import router from "../router.js";
 import axios from "axios";
+import {nextTick} from "vue";
 
 export const useTaskStore = defineStore('task', {
     state: () => ({
@@ -112,7 +113,16 @@ export const useTaskStore = defineStore('task', {
         },
         async removeTask(taskId) {
             try {
-                await api.delete(`tasks/${taskId}`);
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/delete/${taskId}`,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: localStorage.getItem('token')
+                                ? `Bearer ${localStorage.getItem('token')}`
+                                : '',
+                        }
+                    }
+                );
                 this.deleteTask(taskId);
                 this.toaster.success("task removed successfully");
             } catch (error) {
@@ -132,6 +142,7 @@ export const useTaskStore = defineStore('task', {
         },
         deleteTask(taskId) {
             this.tasks = this.tasks.filter(task => task.id !== taskId);
+
         },
         updateTaskList(updatedTask) {
             const index = this.tasks.findIndex(task => task.id === updatedTask.id)

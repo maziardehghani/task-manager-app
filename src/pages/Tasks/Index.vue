@@ -49,9 +49,10 @@
 
               <div class="card-body">
 
-               <div>
-                 <Edit :task="task"  />
-               </div>
+                <div class="btn-group" role="group">
+                  <Edit :task="task"/>
+                  <Delete :task="task"/>
+                </div>
 
 
               </div>
@@ -78,6 +79,7 @@ import OrderBy from "../../components/Tasks/OrderBy.vue";
 import Create from "../../components/Tasks/Create.vue";
 import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
 import Edit from "../../components/Tasks/Edit.vue";
+import Delete from "../../components/Tasks/Delete.vue";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)
