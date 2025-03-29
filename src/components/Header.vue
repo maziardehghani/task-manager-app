@@ -14,6 +14,12 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/tasks">Tasks</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/login">login</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/register">register</router-link>
+            </li>
           </ul>
 
         </div>
