@@ -6,6 +6,7 @@ import 'vue-toastification/dist/index.css';
 import router from './router.js'
 import 'bootstrap/dist/js/bootstrap.bundle.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import { createPinia } from 'pinia'
 
 const app = createApp(App)

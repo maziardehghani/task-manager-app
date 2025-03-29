@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
       <Create/>
       <hr>
       <div class="row">
@@ -29,7 +29,9 @@
                     <small class="text-muted">{{task.title}}</small>
                   </div>
                   <div class="text-end">
+
                     <small class="text-black fw-bold">{{task.status}}</small>
+
                   </div>
                 </div>
               </h5>
@@ -45,6 +47,15 @@
                 </div>
               </div>
 
+              <div class="card-body">
+
+               <div>
+                 <Edit :task="task"  />
+               </div>
+
+
+              </div>
+
             </div>
           </div>
         </div>
@@ -52,6 +63,9 @@
     </div>
 
   </div>
+
+
+
 </template>
 
 <script setup>
@@ -62,6 +76,8 @@ import Filter from "../../components/Tasks/Filter.vue";
 import Search from "../../components/Tasks/Search.vue";
 import OrderBy from "../../components/Tasks/OrderBy.vue";
 import Create from "../../components/Tasks/Create.vue";
+import BasePreLoaderButton from "../../components/Base/BasePreLoaderButton.vue";
+import Edit from "../../components/Tasks/Edit.vue";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)

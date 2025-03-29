@@ -81,18 +81,27 @@ export const useTaskStore = defineStore('task', {
                 this.toaster.error(error.response.data.message);
             }
         },
-        async updateTask(data, image, TaskId) {
+        async updateTask(data, TaskId) {
             try {
-                const response = await api.put(`tasks/${TaskId}`, {
-                    title: data.title,
-                    description: data.description,
-                    status: data.status,
-                    start_date: data.start_date,
-                    end_date: data.end_date,
-                });
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks/update/${TaskId}`,
+                    {
+                        title: data.title,
+                        description: data.description,
+                        status: data.status,
+                        start_date: data.start_date,
+                        end_date: data.end_date,
+                        _method: "PUT",
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: localStorage.getItem('token')
+                                ? `Bearer ${localStorage.getItem('token')}`
+                                : '',
+                        }
+                    });
+                this.toaster.success('task edited successfully');
 
-                this.toaster.success("task updated successfully");
-                this.goBack();
+
             } catch (error) {
                 console.log(error);
                 this.validation(error.response.data.errors);

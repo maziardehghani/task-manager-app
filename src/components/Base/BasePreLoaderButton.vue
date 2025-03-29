@@ -1,5 +1,5 @@
 <template>
-  <button v-if="!loading" class="btn btn-dark">
+  <button v-if="!loading" class="btn btn-dark" type="submit">
     {{props.mainText}}
   </button>
   <button v-if="loading" class="btn btn-dark" type="button" disabled>
