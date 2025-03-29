@@ -1,23 +1,35 @@
 <template>
 
-  <div class="container mt-5">
-    <div class="row g-3">
-      <div v-for="task in tasks" class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            {{task.title}}
+  <div>
+    <div v-if="preLoader" class="container mt-5">
+      <div class="row flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <Filter/>
+      <div class="row g-3">
+        <div v-for="task in tasks" class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              {{ task.title }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </template>
 
 <script setup>
 
 import {useTaskStore} from "../../store/Task.js";
 import {computed, ref} from "vue";
+import Filter from "../../components/Tasks/Filter.vue";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)
