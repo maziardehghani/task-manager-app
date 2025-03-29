@@ -99,6 +99,8 @@ export const useTaskStore = defineStore('task', {
                                 : '',
                         }
                     });
+
+                this.updateTaskList(response.data.data)
                 this.toaster.success('task edited successfully');
 
 
@@ -130,6 +132,13 @@ export const useTaskStore = defineStore('task', {
         },
         deleteTask(taskId) {
             this.tasks = this.tasks.filter(task => task.id !== taskId);
+        },
+        updateTaskList(updatedTask) {
+            const index = this.tasks.findIndex(task => task.id === updatedTask.id)
+
+            if (index !== -1) {
+                this.tasks.splice(index, 1, updatedTask);
+            }
         },
     },
 });
