@@ -30,8 +30,10 @@ export const useTaskStore = defineStore('task', {
     actions: {
         async fetchTasks() {
             try {
-                const response = await api.get(`tasks`);
+                const response = await api.get(`api/tasks`);
                 this.tasks = response.data.data;
+
+                console.log(response.data);
 
             } catch (error) {
                 this.toaster.error("error while receive tasks");

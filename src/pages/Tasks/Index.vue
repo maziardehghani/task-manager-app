@@ -2,10 +2,10 @@
 
   <div class="container mt-5">
     <div class="row g-3">
-      <div class="col-md-4">
+      <div v-for="task in tasks" class="col-md-4">
         <div class="card">
           <div class="card-body">
-            task 1
+            {{task.title}}
           </div>
         </div>
       </div>
@@ -16,8 +16,23 @@
 
 <script setup>
 
+import {useTaskStore} from "../../store/Task.js";
+import {computed, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
+const store = useTaskStore();
+const tasks = computed(() => store.allTasks)
+const preLoader = ref(false)
+const route = useRoute()
+const router = useRouter()
 
+async function fetchTasks() {
+  preLoader.value = true
+  await store.fetchTasks()
+  preLoader.value = false
+}
+
+fetchTasks()
 
 </script>
 
