@@ -28,9 +28,9 @@ export const useTaskStore = defineStore('task', {
         },
     },
     actions: {
-        async fetchTasks(status='', search = '') {
+        async fetchTasks(status='', search = '', order='') {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}&order=${order}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: localStorage.getItem('token')
