@@ -31,7 +31,7 @@
               </div>
 
               <div class="text-center mt-4">
-                <p class="mb-0">Don't have an account? <a href="#register" class="text-decoration-none fw-bold">Sign up</a></p>
+                <p class="mb-0">Don't have an account? <router-link :to="{ name: 'register' }" class="text-decoration-none fw-bold">Sign up</router-link></p>
               </div>
             </form>
           </div>

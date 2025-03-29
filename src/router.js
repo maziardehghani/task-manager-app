@@ -8,8 +8,8 @@ import Register from "./pages/Auth/Register.vue";
 const routes = [
     {path: '/home', component: Home, name:'home'},
     {path: '/tasks', component: Index, name:'tasks'},
-    {path: '/login', component: Login, name:'login'},
-    {path: '/register', component: Register, name:'register'},
+    {path: '/login', component: Login, name:'login', meta: { hideHeader: true }},
+    {path: '/register', component: Register, name:'register', meta: { hideHeader: true }},
 ]
 
 const router = createRouter({
