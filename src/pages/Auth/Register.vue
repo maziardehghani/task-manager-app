@@ -83,7 +83,7 @@ const form = reactive({
 const preLoader = ref(false);
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -103,8 +103,8 @@ async function register() {
       password_confirmation : form.password_confirmation
     });
 
-    sessionStorage.setItem('token', res.data.data.token)
-    authState.isAuthenticated = !!sessionStorage.getItem('token');
+    localStorage.setItem('token', res.data.data.token)
+    authState.isAuthenticated = !!localStorage.getItem('token');
 
     toast.success('Login successful!');
     await router.push({name: 'home'});

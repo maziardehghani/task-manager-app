@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useToast } from 'vue-toastification';
-import {api} from "../states/api.js";
 import router from "../router.js";
+import axios from "axios";
 
 export const useTaskStore = defineStore('task', {
     state: () => ({
@@ -30,10 +30,16 @@ export const useTaskStore = defineStore('task', {
     actions: {
         async fetchTasks() {
             try {
-                const response = await api.get(`api/tasks`);
-                this.tasks = response.data.data;
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: localStorage.getItem('token')
+                            ? `Bearer ${localStorage.getItem('token')}`
+                            : '',
+                    }
+                });
 
-                console.log(response.data);
+                this.tasks = response.data.data;
 
             } catch (error) {
                 this.toaster.error("error while receive tasks");

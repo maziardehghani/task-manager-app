@@ -11,7 +11,7 @@ import { createPinia } from 'pinia'
 const app = createApp(App)
 app.use(Toast, {
     timeout: 3000,
-    position: 'top-left',
+    position: 'top-right',
 });
 app.use(router)
 app.use(createPinia())

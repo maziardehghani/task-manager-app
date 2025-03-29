@@ -18,13 +18,10 @@
 
 import {useTaskStore} from "../../store/Task.js";
 import {computed, ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)
 const preLoader = ref(false)
-const route = useRoute()
-const router = useRouter()
 
 async function fetchTasks() {
   preLoader.value = true
