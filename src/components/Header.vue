@@ -14,6 +14,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/tasks">Tasks</router-link>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" @click="logout">Logout</a>
+            </li>
           </ul>
 
         </div>
@@ -23,6 +26,15 @@
 </template>
 
 <script setup>
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+
+function logout() {
+  sessionStorage.removeItem("token");
+
+  router.push('login')
+}
 
 </script>
 
