@@ -50,8 +50,8 @@
               <div class="card-body">
 
                 <div class="btn-group" role="group">
-                  <Edit :task="task"/>
-                  <Delete :task="task"/>
+                  <Edit :task="task" :key="`${task.id}-${task.endDate}`"/>
+                  <Delete :task="task" :key="task.id"/>
                 </div>
 
 
