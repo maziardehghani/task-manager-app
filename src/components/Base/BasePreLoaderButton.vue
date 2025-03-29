@@ -1,8 +1,8 @@
 <template>
-  <button v-if="!loading" id="kt_sign_in_submit" class="btn btn-primary">
+  <button v-if="!loading" class="btn btn-dark">
     {{props.mainText}}
   </button>
-  <button v-if="loading" class="btn btn-primary" type="button" disabled>
+  <button v-if="loading" class="btn btn-dark" type="button" disabled>
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     {{props.loadingText}}
   </button>

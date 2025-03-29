@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { useToast } from 'vue-toastification';
+import {defineStore} from 'pinia';
+import {useToast} from 'vue-toastification';
 import router from "../router.js";
 import axios from "axios";
 
@@ -9,9 +9,7 @@ export const useTaskStore = defineStore('task', {
         task: {},
         toaster: useToast(),
         statuses: [],
-        errors: [
-
-        ],
+        errors: [],
     }),
     getters: {
         allTasks(state) {
@@ -28,7 +26,7 @@ export const useTaskStore = defineStore('task', {
         },
     },
     actions: {
-        async fetchTasks(status='', search = '', order='') {
+        async fetchTasks(status = '', search = '', order = '') {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/tasks?status=${status}&text=${search}&order=${order}`, {
                     headers: {
@@ -56,26 +54,27 @@ export const useTaskStore = defineStore('task', {
             }
         },
 
-        async fetchStatuses() {
+        async storeTask(data) {
             try {
-                const response = await api.get(`statuses`);
-                this.statuses = response.data.data;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async storeTask(data, image) {
-            try {
-                const response = await api.post(`tasks/store`, {
-                    title: data.title,
-                    description: data.description,
-                    status: data.status,
-                    start_date: data.start_date,
-                    end_date: data.end_date,
-                });
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks/store`,
+                    {
+                        title: data.title,
+                        description: data.description,
+                        status: data.status,
+                        start_date: data.start_date,
+                        end_date: data.end_date,
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: localStorage.getItem('token')
+                                ? `Bearer ${localStorage.getItem('token')}`
+                                : '',
+                        }
+                    });
 
-                this.toaster.success("task updated successfully");
-                this.goBack();
+                this.tasks.unshift(response.data.data)
+                this.toaster.success("task created successfully");
+
             } catch (error) {
                 console.log(error);
                 this.validation(error.response.data.errors);
@@ -109,9 +108,6 @@ export const useTaskStore = defineStore('task', {
                 console.log(error);
                 this.toaster.error("error while receive tasks");
             }
-        },
-        goBack() {
-            router.push('/tasks');
         },
         validation(errors) {
             for (const [key, value] of Object.entries(this.errors)) {

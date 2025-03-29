@@ -10,6 +10,8 @@
     </div>
 
     <div class="container mt-5">
+      <Create/>
+      <hr>
       <div class="row">
 
         <Search/>
@@ -38,6 +40,7 @@ import {computed, ref} from "vue";
 import Filter from "../../components/Tasks/Filter.vue";
 import Search from "../../components/Tasks/Search.vue";
 import OrderBy from "../../components/Tasks/OrderBy.vue";
+import Create from "../../components/Tasks/Create.vue";
 
 const store = useTaskStore();
 const tasks = computed(() => store.allTasks)
